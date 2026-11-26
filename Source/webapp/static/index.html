@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GridLogic · No-guess deduction</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23284b63'/%3E%3Cpath d='M4 4h3v3H4zM9 4h3v3H9zM4 9h3v3H4z' fill='%23f4d35e'/%3E%3Cpath d='M9 9h3v3H9z' fill='%23d1495b'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <div>
+        <strong>GridLogic</strong>
+        <small>No-guess deduction · CNF + DPLL logic agent · CSC14003 Project 2</small>
+      </div>
+    </div>
+    <div class="progress-wrap" title="Face-up cards">
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+      <span id="progress-text">0 / 0</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="board-area">
+      <div class="board-head">
+        <div>
+          <h1 id="puzzle-title">Loading…</h1>
+          <div id="puzzle-sub" class="sub"></div>
+        </div>
+        <div class="legend">
+          <span class="chip chip-crim">Criminal</span>
+          <span class="chip chip-inno">Innocent</span>
+          <span class="chip chip-down">Face-down</span>
+          <span class="chip chip-counted">Counted by clue</span>
+          <span class="chip chip-named">Named in clue</span>
+        </div>
+      </div>
+      <div id="warnings"></div>
+      <div id="board" class="board" aria-label="Puzzle grid"></div>
+      <div id="clue-panel" class="clue-panel">
+        Click a <b>face-up</b> card to highlight the cells its clue talks about.
+        Click a <b>face-down</b> card to call a verdict.
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="panel">
+        <h2>Game</h2>
+        <div class="row">
+          <select id="puzzle-select" aria-label="Puzzle"></select>
+          <button id="btn-load" title="Load the selected puzzle">Load</button>
+        </div>
+        <label class="file-btn">
+          <input type="file" id="file-input" accept=".json,application/json">
+          <span>Load puzzle from file…</span>
+        </label>
+        <div class="grid-buttons">
+          <button id="btn-restart" title="Back to the initial face-up cards">Restart</button>
+          <button id="btn-hint" title="Show a relevant clue and a provable character (H)">Hint</button>
+          <button id="btn-step" title="One deduction step of the Logic Agent">Agent step</button>
+          <button id="btn-solve" class="primary" title="Run the Logic Agent until a terminal state">Auto Solve</button>
+        </div>
+        <div class="grid-buttons two">
+          <button id="btn-check" title="Uniqueness check over the complete clue set">Check uniqueness</button>
+          <button id="btn-trace" title="Download the deduction log as JSON">Export trace</button>
+        </div>
+      </section>
+
+      <section class="panel" id="verdict-panel">
+        <h2>Verdict</h2>
+        <div id="selected" class="selected">No card selected.</div>
+        <div class="grid-buttons two">
+          <button id="btn-criminal" class="btn-crim" disabled title="Keyboard: C">CRIMINAL</button>
+          <button id="btn-innocent" class="btn-inno" disabled title="Keyboard: I">INNOCENT</button>
+        </div>
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Knowledge base KB<sub>t</sub></h2>
+        <dl class="stats" id="kb-stats"></dl>
+        <details class="settings">
+          <summary>Solver settings</summary>
+          <label>Agent mode
+            <select id="set-mode">
+              <option value="step">step (one verdict per step)</option>
+              <option value="wave">wave (all forced verdicts)</option>
+            </select>
+          </label>
+          <label>Cardinality encoding
+            <select id="set-cardinality">
+              <option value="auto">auto</option>
+              <option value="direct">direct (combinatorial)</option>
+              <option value="seqcounter">sequential counter</option>
+              <option value="totalizer">totalizer</option>
+            </select>
+          </label>
+          <label>DPLL branching
+            <select id="set-heuristic">
+              <option value="first">first unassigned variable</option>
+              <option value="occurrence">most occurrences</option>
+            </select>
+          </label>
+        </details>
+      </section>
+
+      <section class="panel log-panel">
+        <div class="log-head">
+          <h2>Deduction log</h2>
+          <span id="log-count" class="sub"></span>
+        </div>
+        <ol id="log" class="log"></ol>
+      </section>
+    </aside>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

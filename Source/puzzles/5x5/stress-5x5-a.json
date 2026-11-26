@@ -1,0 +1,399 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "stress-5x5-a",
+  "title": "5x5 Stress A",
+  "rows": 5,
+  "cols": 5,
+  "initial": [
+    "C1"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Amir",
+      "profession": "Painter",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "B1",
+            "A2",
+            "B5"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is at least 1 criminal among Bella, Dora and Theo."
+    },
+    {
+      "cell": "B1",
+      "name": "Bella",
+      "profession": "Scientist",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "col": "D"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 2 innocents in column D."
+    },
+    {
+      "cell": "C1",
+      "name": "Boris",
+      "profession": "Teacher",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "SAME",
+        "a": "D1",
+        "b": "C1"
+      },
+      "text": "Carmen and Boris have the same status."
+    },
+    {
+      "cell": "D1",
+      "name": "Carmen",
+      "profession": "Guard",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "FACT",
+        "person": "B3",
+        "status": "INNOCENT"
+      },
+      "text": "Iris is innocent."
+    },
+    {
+      "cell": "E1",
+      "name": "Dmitri",
+      "profession": "Chef",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "row": 1
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is exactly 1 innocent in row 1."
+    },
+    {
+      "cell": "A2",
+      "name": "Dora",
+      "profession": "Builder",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 2,
+        "region": {
+          "kind": "row",
+          "row": 4
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at most 2 criminals in row 4."
+    },
+    {
+      "cell": "B2",
+      "name": "Eli",
+      "profession": "Judge",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "C1",
+            "D1",
+            "A3"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "Boris, Carmen and Ines are all criminals."
+    },
+    {
+      "cell": "C2",
+      "name": "Freya",
+      "profession": "Mechanic",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "SAME",
+        "a": "C2",
+        "b": "D2"
+      },
+      "text": "Freya and Grace have the same status."
+    },
+    {
+      "cell": "D2",
+      "name": "Grace",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 6,
+        "region": {
+          "kind": "neighbors",
+          "of": "C3"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 6 innocents among Kenji's neighbors."
+    },
+    {
+      "cell": "E2",
+      "name": "Hector",
+      "profession": "Judge",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "A2"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 3 innocents among Dora's neighbors."
+    },
+    {
+      "cell": "A3",
+      "name": "Ines",
+      "profession": "Farmer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "FACT",
+        "person": "C4",
+        "status": "CRIMINAL"
+      },
+      "text": "Petra is a criminal."
+    },
+    {
+      "cell": "B3",
+      "name": "Iris",
+      "profession": "Baker",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "SAME",
+        "a": "B3",
+        "b": "B2"
+      },
+      "text": "Iris and Eli have the same status."
+    },
+    {
+      "cell": "C3",
+      "name": "Kenji",
+      "profession": "Teacher",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "E3",
+        "b": "E4"
+      },
+      "text": "Mia and Ravi have different statuses."
+    },
+    {
+      "cell": "D3",
+      "name": "Maya",
+      "profession": "Baker",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 4,
+        "region": {
+          "kind": "row",
+          "row": 2
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are at most 4 innocents in row 2."
+    },
+    {
+      "cell": "E3",
+      "name": "Mia",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "E3"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals among Mia's neighbors."
+    },
+    {
+      "cell": "A4",
+      "name": "Nadia",
+      "profession": "Scientist",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at most 3 criminals among Boris's neighbors."
+    },
+    {
+      "cell": "B4",
+      "name": "Oscar",
+      "profession": "Firefighter",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "B4"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 3 innocents among Oscar's neighbors."
+    },
+    {
+      "cell": "C4",
+      "name": "Petra",
+      "profession": "Pilot",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal in column A."
+    },
+    {
+      "cell": "D4",
+      "name": "Quinn",
+      "profession": "Detective",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "row",
+          "row": 3
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 2 innocents in row 3."
+    },
+    {
+      "cell": "E4",
+      "name": "Ravi",
+      "profession": "Detective",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "E4"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals among Ravi's neighbors."
+    },
+    {
+      "cell": "A5",
+      "name": "Rhea",
+      "profession": "Singer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "B5",
+        "b": "A4"
+      },
+      "text": "Theo and Nadia have different statuses."
+    },
+    {
+      "cell": "B5",
+      "name": "Theo",
+      "profession": "Baker",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "A4"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 2 criminals among Nadia's neighbors."
+    },
+    {
+      "cell": "C5",
+      "name": "Ulf",
+      "profession": "Painter",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "col",
+          "col": "E"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 4 criminals in column E."
+    },
+    {
+      "cell": "D5",
+      "name": "Uma",
+      "profession": "Judge",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "col",
+          "col": "C"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 4 criminals in column C."
+    },
+    {
+      "cell": "E5",
+      "name": "Xavier",
+      "profession": "Pilot",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "SAME",
+        "a": "E5",
+        "b": "E4"
+      },
+      "text": "Xavier and Ravi have the same status."
+    }
+  ],
+  "meta": {
+    "author": "gridlogic.generator",
+    "generator": {
+      "seed": 5000,
+      "attempt": 1,
+      "extension_rate": 0.0,
+      "initial_reveals": 1
+    },
+    "waves": 13,
+    "features": []
+  }
+}

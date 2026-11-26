@@ -4,6 +4,8 @@ Kế hoạch triển khai và checklist nghiệm thu cho nhóm 5 người. Ngu�
 
 Nhóm sẽ xây dựng trò chơi Griductive có giao diện web và bộ giải tự động bằng Python. Quy tắc xuyên suốt là **chỉ lật thẻ khi trạng thái nhân vật suy ra được từ dữ kiện công khai ở bước hiện tại**. Game Engine quản lý đáp án ẩn. Logic Agent dùng manh mối đã mở và trạng thái đã biết để chứng minh phán quyết.
 
+> **Bản cài đặt trong repo:** mã nguồn ở [`Source/`](Source/) (hướng dẫn chạy: [`Source/README.md`](Source/README.md), chạy `python main.py` trong `Source`), bản nháp báo cáo ở [`Report.pdf`](Report.pdf) (dựng lại bằng `python Report/build_report.py`). Các ô checklist bên dưới vẫn để trống để từng thành viên tự kiểm tra rồi đánh dấu; báo cáo còn các chỗ `[...]` (họ tên, MSSV, tỷ lệ hoàn thành, link video) cần nhóm điền.
+
 ## 1. Thang điểm và người phụ trách
 
 *TV: THÀNH VIÊN

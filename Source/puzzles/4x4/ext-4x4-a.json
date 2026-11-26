@@ -1,0 +1,308 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "ext-4x4-a",
+  "title": "4x4 Extensions A",
+  "rows": 4,
+  "cols": 4,
+  "initial": [
+    "B3"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Ada",
+      "profession": "Pilot",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A1",
+        "b": "C1"
+      },
+      "text": "Ada and Dmitri have different statuses."
+    },
+    {
+      "cell": "B1",
+      "name": "Boris",
+      "profession": "Builder",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "C1",
+        "b": "D2"
+      },
+      "text": "Dmitri and Leon have different statuses."
+    },
+    {
+      "cell": "C1",
+      "name": "Dmitri",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "B1",
+        "b": "C1"
+      },
+      "text": "Boris and Dmitri have different statuses."
+    },
+    {
+      "cell": "D1",
+      "name": "Hector",
+      "profession": "Chef",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "direction",
+          "of": "C4",
+          "dir": "above"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal above Rhea."
+    },
+    {
+      "cell": "A2",
+      "name": "Hugo",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "A2"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals among Hugo's neighbors."
+    },
+    {
+      "cell": "B2",
+      "name": "Ines",
+      "profession": "Singer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "ALL",
+        "clues": [
+          {
+            "type": "FACT",
+            "person": "B1",
+            "status": "CRIMINAL"
+          },
+          {
+            "type": "EXACTLY",
+            "k": 1,
+            "region": {
+              "kind": "neighbors",
+              "of": "A1"
+            },
+            "status": "CRIMINAL"
+          }
+        ]
+      },
+      "text": "Boris is a criminal and there is exactly 1 criminal among Ada's neighbors."
+    },
+    {
+      "cell": "C2",
+      "name": "Kate",
+      "profession": "Scientist",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "direction",
+          "of": "C4",
+          "dir": "right"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "Everyone to the right of Rhea is innocent."
+    },
+    {
+      "cell": "D2",
+      "name": "Leon",
+      "profession": "Firefighter",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "row": 1
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is exactly 1 innocent in row 1."
+    },
+    {
+      "cell": "A3",
+      "name": "Liam",
+      "profession": "Chef",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "A3"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 3 innocents among Liam's neighbors."
+    },
+    {
+      "cell": "B3",
+      "name": "Lucia",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "common_neighbors",
+          "of": [
+            "B3",
+            "D1"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are no criminals among the common neighbors of Lucia and Hector."
+    },
+    {
+      "cell": "C3",
+      "name": "Marco",
+      "profession": "Singer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at most 3 criminals among Dmitri's neighbors."
+    },
+    {
+      "cell": "D3",
+      "name": "Maya",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "ALL",
+        "clues": [
+          {
+            "type": "FACT",
+            "person": "C3",
+            "status": "CRIMINAL"
+          },
+          {
+            "type": "AT_LEAST",
+            "k": 1,
+            "region": {
+              "kind": "neighbors",
+              "of": "C4"
+            },
+            "status": "CRIMINAL"
+          }
+        ]
+      },
+      "text": "Marco is a criminal and there is at least 1 criminal among Rhea's neighbors."
+    },
+    {
+      "cell": "A4",
+      "name": "Oscar",
+      "profession": "Programmer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 2,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "B1",
+            "D3",
+            "B4"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at most 2 criminals among Boris, Maya and Quinn."
+    },
+    {
+      "cell": "B4",
+      "name": "Quinn",
+      "profession": "Pilot",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "CONNECTED",
+        "region": {
+          "kind": "col",
+          "col": "D"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "All criminals in column D are connected."
+    },
+    {
+      "cell": "C4",
+      "name": "Rhea",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "A1",
+            "B3",
+            "D4"
+          ]
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 2 innocents among Ada, Lucia and Xavier."
+    },
+    {
+      "cell": "D4",
+      "name": "Xavier",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "PARITY",
+        "parity": "EVEN",
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "B3",
+            "C4"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is an even number of criminals among Lucia and Rhea."
+    }
+  ],
+  "meta": {
+    "author": "gridlogic.generator",
+    "generator": {
+      "seed": 4000,
+      "attempt": 1,
+      "extension_rate": 0.45,
+      "initial_reveals": 1
+    },
+    "waves": 14,
+    "features": [
+      "ALL",
+      "CONNECTED",
+      "PARITY",
+      "region:common_neighbors",
+      "region:direction"
+    ]
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "classic-4x4-b",
+  "title": "4x4 Classic B",
+  "rows": 4,
+  "cols": 4,
+  "initial": [
+    "A2"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Emma",
+      "profession": "Scientist",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "B2"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 2 criminals among Leon's neighbors."
+    },
+    {
+      "cell": "B1",
+      "name": "Gina",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "D3"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals among Rhea's neighbors."
+    },
+    {
+      "cell": "C1",
+      "name": "Hugo",
+      "profession": "Chef",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is exactly 1 innocent among Hugo's neighbors."
+    },
+    {
+      "cell": "D1",
+      "name": "Jack",
+      "profession": "Baker",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "D1",
+        "b": "D4"
+      },
+      "text": "Jack and Yara have different statuses."
+    },
+    {
+      "cell": "A2",
+      "name": "Kenji",
+      "profession": "Baker",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "B1",
+            "A3"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are no criminals among Gina and Nadia."
+    },
+    {
+      "cell": "B2",
+      "name": "Leon",
+      "profession": "Programmer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A2",
+        "b": "B3"
+      },
+      "text": "Kenji and Paul have different statuses."
+    },
+    {
+      "cell": "C2",
+      "name": "Liam",
+      "profession": "Programmer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 5,
+        "region": {
+          "kind": "neighbors",
+          "of": "C2"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 5 innocents among Liam's neighbors."
+    },
+    {
+      "cell": "D2",
+      "name": "Marco",
+      "profession": "Firefighter",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "col": "B"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal in column B."
+    },
+    {
+      "cell": "A3",
+      "name": "Nadia",
+      "profession": "Mechanic",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "row",
+          "row": 2
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "Everyone in row 2 is a criminal."
+    },
+    {
+      "cell": "B3",
+      "name": "Paul",
+      "profession": "Teacher",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "B3"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 3 innocents among Paul's neighbors."
+    },
+    {
+      "cell": "C3",
+      "name": "Pia",
+      "profession": "Programmer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "B3",
+            "D3",
+            "A4"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal among Paul, Rhea and Theo."
+    },
+    {
+      "cell": "D3",
+      "name": "Rhea",
+      "profession": "Teacher",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is at least 1 criminal in column A."
+    },
+    {
+      "cell": "A4",
+      "name": "Theo",
+      "profession": "Baker",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "C3",
+            "A4",
+            "B4",
+            "D4"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal among Pia, Theo, Tina and Yara."
+    },
+    {
+      "cell": "B4",
+      "name": "Tina",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 2 innocents in column A."
+    },
+    {
+      "cell": "C4",
+      "name": "Victor",
+      "profession": "Detective",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "FACT",
+        "person": "D1",
+        "status": "CRIMINAL"
+      },
+      "text": "Jack is a criminal."
+    },
+    {
+      "cell": "D4",
+      "name": "Yara",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "row": 4
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at most 3 criminals in row 4."
+    }
+  ],
+  "meta": {
+    "author": "gridlogic.generator",
+    "generator": {
+      "seed": 3001,
+      "attempt": 1,
+      "extension_rate": 0.0,
+      "initial_reveals": 1
+    },
+    "waves": 6,
+    "features": []
+  }
+}

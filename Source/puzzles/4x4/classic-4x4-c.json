@@ -1,0 +1,272 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "classic-4x4-c",
+  "title": "4x4 Classic C",
+  "rows": 4,
+  "cols": 4,
+  "initial": [
+    "A1"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Alice",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "A1"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "Everyone among Alice's neighbors is a criminal."
+    },
+    {
+      "cell": "B1",
+      "name": "Boris",
+      "profession": "Teacher",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "B1"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are at least 2 innocents among Boris's neighbors."
+    },
+    {
+      "cell": "C1",
+      "name": "Bruno",
+      "profession": "Doctor",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 3,
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at most 3 criminals in column A."
+    },
+    {
+      "cell": "D1",
+      "name": "Cyrus",
+      "profession": "Singer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "D1"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 2 criminals among Cyrus's neighbors."
+    },
+    {
+      "cell": "A2",
+      "name": "Dora",
+      "profession": "Programmer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "A2"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals among Dora's neighbors."
+    },
+    {
+      "cell": "B2",
+      "name": "Felix",
+      "profession": "Guard",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "FACT",
+        "person": "A4",
+        "status": "CRIMINAL"
+      },
+      "text": "Pia is a criminal."
+    },
+    {
+      "cell": "C2",
+      "name": "Gina",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "col": "D"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal in column D."
+    },
+    {
+      "cell": "D2",
+      "name": "Hector",
+      "profession": "Doctor",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "row": 2
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals in row 2."
+    },
+    {
+      "cell": "A3",
+      "name": "Kate",
+      "profession": "Detective",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "row": 3
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is at least 1 criminal in row 3."
+    },
+    {
+      "cell": "B3",
+      "name": "Marco",
+      "profession": "Programmer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "neighbors",
+          "of": "D4"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are no criminals among Theo's neighbors."
+    },
+    {
+      "cell": "C3",
+      "name": "Mia",
+      "profession": "Teacher",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 2,
+        "region": {
+          "kind": "row",
+          "row": 4
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at least 2 criminals in row 4."
+    },
+    {
+      "cell": "D3",
+      "name": "Oscar",
+      "profession": "Scientist",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A4",
+        "b": "B3"
+      },
+      "text": "Pia and Marco have different statuses."
+    },
+    {
+      "cell": "A4",
+      "name": "Pia",
+      "profession": "Pilot",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "FACT",
+        "person": "D3",
+        "status": "INNOCENT"
+      },
+      "text": "Oscar is innocent."
+    },
+    {
+      "cell": "B4",
+      "name": "Rhea",
+      "profession": "Builder",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "A3",
+            "C3",
+            "C4",
+            "D4"
+          ]
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 3 innocents among Kate, Mia, Selim and Theo."
+    },
+    {
+      "cell": "C4",
+      "name": "Selim",
+      "profession": "Chef",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "SAME",
+        "a": "B4",
+        "b": "A4"
+      },
+      "text": "Rhea and Pia have the same status."
+    },
+    {
+      "cell": "D4",
+      "name": "Theo",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 2,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "D2",
+            "B4",
+            "C4"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at least 2 criminals among Hector, Rhea and Selim."
+    }
+  ],
+  "meta": {
+    "author": "gridlogic.generator",
+    "generator": {
+      "seed": 3002,
+      "attempt": 1,
+      "extension_rate": 0.0,
+      "initial_reveals": 1
+    },
+    "waves": 11,
+    "features": []
+  }
+}

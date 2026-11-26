@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Báo cáo Đồ án 2 – Griductive Solver</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm;
+    @bottom-center { content: "CSC14003 · Đồ án 2 · trang " counter(page); font: 8.5pt "Segoe UI", sans-serif; color: #777; } }
+  @page :first { @bottom-center { content: none; } }
+  html { font-family: "Cambria", "Times New Roman", serif; font-size: 10.6pt; line-height: 1.45; color: #1d232a; }
+  body { margin: 0; }
+  h1, h2, h3, h4 { font-family: "Segoe UI", "Calibri", sans-serif; color: #1f3f57; line-height: 1.25; }
+  h1 { font-size: 19pt; margin: 0 0 8pt; border-bottom: 2px solid #1f3f57; padding-bottom: 4pt; page-break-before: always; }
+  h1.first { page-break-before: auto; }
+  h2 { font-size: 13.5pt; margin: 16pt 0 6pt; }
+  h3 { font-size: 11.5pt; margin: 12pt 0 4pt; color: #2b5876; }
+  p { margin: 4pt 0 6pt; text-align: justify; }
+  ul, ol { margin: 4pt 0 6pt; padding-left: 20pt; }
+  li { margin: 1.5pt 0; }
+  code, .mono { font-family: "Consolas", "Cascadia Mono", monospace; font-size: 9pt; background: #f2f0ea; padding: 0 2.5pt; border-radius: 2pt; }
+  pre { font-family: "Consolas", "Cascadia Mono", monospace; font-size: 8.4pt; background: #f6f4ee; border: 1px solid #e2ddd0;
+        border-radius: 4pt; padding: 6pt 8pt; white-space: pre-wrap; line-height: 1.35; page-break-inside: avoid; margin: 6pt 0; }
+  table { border-collapse: collapse; width: 100%; margin: 6pt 0 8pt; font-size: 8.6pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid #cfc8b8; padding: 2.5pt 4pt; vertical-align: top; }
+  th { background: #e9eef3; font-family: "Segoe UI", sans-serif; font-weight: 600; text-align: left; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  table.data td:first-child, table.data td:nth-child(2) { white-space: nowrap; }
+  caption { caption-side: bottom; font-size: 8.6pt; color: #555; padding-top: 3pt; text-align: center; font-style: italic; }
+  figure { margin: 8pt 0; text-align: center; page-break-inside: avoid; }
+  figure img { max-width: 100%; border: 1px solid #d9d3c6; border-radius: 4pt; }
+  figcaption { font-size: 8.6pt; color: #555; font-style: italic; margin-top: 3pt; }
+  .math { font-family: "Cambria Math", "Cambria", serif; font-size: 10.8pt; text-align: center; margin: 6pt 0; }
+  .note { background: #fff6dd; border-left: 4px solid #e0a800; padding: 5pt 8pt; margin: 6pt 0; font-size: 9.6pt; }
+  .todo { background: #fde8e6; border-left: 4px solid #c0392b; padding: 5pt 8pt; margin: 6pt 0; font-size: 9.6pt; }
+  .ok { color: #2e7d4f; font-weight: 700; }
+  .bad { color: #b03a2e; font-weight: 700; }
+  .muted { color: #666; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; }
+  .cover { height: 247mm; display: flex; flex-direction: column; justify-content: space-between; text-align: center; }
+  .cover .uni { font-family: "Segoe UI", sans-serif; font-size: 12pt; letter-spacing: .03em; color: #333; }
+  .cover .title { margin-top: 38mm; }
+  .cover .title h0 { display: block; font-family: "Segoe UI", sans-serif; font-size: 30pt; font-weight: 700; color: #1f3f57; }
+  .cover .title .sub { font-size: 14pt; color: #444; margin-top: 6pt; }
+  .cover table { width: 80%; margin: 0 auto; font-size: 10.5pt; }
+  .cover td, .cover th { padding: 4pt 8pt; }
+  .toc { columns: 2; font-size: 10pt; }
+  .toc div { margin: 1.5pt 0; }
+  .arch { font-family: "Segoe UI", sans-serif; font-size: 8.8pt; }
+  svg text { font-family: "Segoe UI", sans-serif; }
+  .kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6pt; margin: 6pt 0; }
+  .kpi div { border: 1px solid #d9d3c6; border-radius: 4pt; padding: 5pt; text-align: center; background: #fbfaf6; }
+  .kpi b { display: block; font-size: 14pt; font-family: "Segoe UI", sans-serif; color: #1f3f57; }
+</style>
+</head>
+<body>
+
+<!-- ====================================================================== COVER -->
+<section class="cover">
+  <div class="uni">
+    ĐẠI HỌC QUỐC GIA TP.HCM · TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN<br>
+    KHOA CÔNG NGHỆ THÔNG TIN
+  </div>
+  <div class="title">
+    <div class="uni">CSC14003 – CƠ SỞ TRÍ TUỆ NHÂN TẠO</div>
+    <h0>ĐỒ ÁN 2: GRIDUCTIVE SOLVER</h0>
+    <div class="sub">Bộ giải suy luận “không đoán” bằng logic mệnh đề, mã hóa CNF và DPLL<br>
+      (ứng dụng minh họa: <b>GridLogic</b>)</div>
+  </div>
+  <div>
+    <table>
+      <tr><th>STT</th><th>Họ và tên</th><th>MSSV</th><th>Vai trò</th></tr>
+      <tr><td>1</td><td>[Họ tên TV1]</td><td>[MSSV]</td><td>Game Engine, dữ liệu, tổng hợp báo cáo</td></tr>
+      <tr><td>2</td><td>[Họ tên TV2]</td><td>[MSSV]</td><td>Biến, vùng, encoder CNF, mở rộng</td></tr>
+      <tr><td>3</td><td>[Họ tên TV3]</td><td>[MSSV]</td><td>DPLL, thực nghiệm</td></tr>
+      <tr><td>4</td><td>[Họ tên TV4]</td><td>[MSSV]</td><td>Logic Agent, Hint, kiểm tra duy nhất</td></tr>
+      <tr><td>5</td><td>[Họ tên TV5]</td><td>[MSSV]</td><td>Giao diện web, video demo</td></tr>
+    </table>
+    <p style="text-align:center;margin-top:10pt">Giảng viên hướng dẫn: [điền tên] &nbsp;·&nbsp;
+      Video demo (Google Drive): <b>[dán liên kết Drive – quyền “bất kỳ ai có liên kết”]</b></p>
+    <p style="text-align:center" class="muted">TP. Hồ Chí Minh, {{REPORT_DATE}}</p>
+  </div>
+</section>
+
+<!-- ====================================================================== TOC -->
+<h1>Mục lục</h1>
+<div class="toc">
+  <div>1. Kế hoạch dự án và phân công</div>
+  <div>2. Tổng quan hệ thống và kiến trúc</div>
+  <div>3. Mô hình hóa bài toán</div>
+  <div>4. Mã hóa CNF</div>
+  <div>5. Thuật toán</div>
+  <div>6. Thực nghiệm</div>
+  <div>7. Kiểm thử và đánh giá mức độ hoàn thành</div>
+  <div>8. Tài liệu tham khảo</div>
+  <div>Phụ lục A. Sử dụng AI tạo sinh</div>
+  <div>Phụ lục B. Hướng dẫn cài đặt và chạy</div>
+  <div>Phụ lục C. Định dạng câu đố JSON</div>
+  <div>Phụ lục D. Kịch bản video demo</div>
+</div>
+
+<div class="todo"><b>Việc nhóm cần làm trước khi nộp:</b> điền họ tên/MSSV, tỷ lệ hoàn thành của từng thành viên (mục 1),
+liên kết video Google Drive (trang bìa), giảng viên hướng dẫn, và rà soát lại Phụ lục A cho đúng với cách nhóm đã thực sự
+sử dụng AI. Các ô đánh dấu <code>[...]</code> là chỗ cần điền; xóa khung này sau khi hoàn tất.</div>
+
+<!-- ====================================================================== 1 -->
+<h1>1. Kế hoạch dự án và phân công</h1>
+
+<h2>1.1 Thành viên và tỷ lệ hoàn thành</h2>
+<p>Điểm cá nhân = điểm nhóm × tỷ lệ hoàn thành (ví dụ của đề: 9,0 × 90% = 8,1). Tỷ lệ được nhóm thống nhất dựa trên phần
+việc đã bàn giao và nghiệm thu trong bảng 1.2.</p>
+<table>
+  <tr><th>Thành viên</th><th>MSSV</th><th>Nhiệm vụ chính</th><th class="n">Tỷ lệ hoàn thành</th></tr>
+  <tr><td>TV1 · [Họ tên]</td><td>[MSSV]</td><td>Game Engine, định dạng dữ liệu, bộ câu đố, điều phối tích hợp, tổng hợp báo cáo</td><td class="n">[…]%</td></tr>
+  <tr><td>TV2 · [Họ tên]</td><td>[MSSV]</td><td>Ánh xạ biến, phân giải vùng, encoder CNF, bộ đánh giá trực tiếp, hai mở rộng trở lên</td><td class="n">[…]%</td></tr>
+  <tr><td>TV3 · [Họ tên]</td><td>[MSSV]</td><td>Bộ giải DPLL, bộ đếm, công cụ chạy thực nghiệm, phân tích số liệu</td><td class="n">[…]%</td></tr>
+  <tr><td>TV4 · [Họ tên]</td><td>[MSSV]</td><td>Logic Agent, xử lý phán quyết, Hint, Auto Solve, nhật ký, kiểm tra tính duy nhất</td><td class="n">[…]%</td></tr>
+  <tr><td>TV5 · [Họ tên]</td><td>[MSSV]</td><td>Giao diện web, tích hợp nút điều khiển, video demo, hướng dẫn chạy</td><td class="n">[…]%</td></tr>
+</table>
+
+<h2>1.2 Phân công chi tiết theo thang điểm</h2>
+<table>
+  <tr><th>Mục của đề</th><th class="n">Điểm</th><th>Phụ trách</th><th>Sản phẩm bàn giao (trong mã nguồn)</th></tr>
+  <tr><td>§4.1 Trò chơi có GUI</td><td class="n">10</td><td>TV5, TV1, TV4</td><td><code>webapp/</code> (server + giao diện), <code>gridlogic/engine.py</code></td></tr>
+  <tr><td>§4.2 Biểu diễn logic và CNF</td><td class="n">10</td><td>TV2</td><td><code>board.py</code>, <code>regions.py</code>, <code>clues.py</code>, <code>logic.py</code>, <code>cnf.py</code>, <code>encoder.py</code></td></tr>
+  <tr><td>§4.3 DPLL</td><td class="n">10</td><td>TV3</td><td><code>gridlogic/dpll.py</code></td></tr>
+  <tr><td>§4.4 Logic Agent</td><td class="n">20</td><td>TV4</td><td><code>knowledge.py</code>, <code>agent.py</code>, <code>uniqueness.py</code></td></tr>
+  <tr><td>§4.5 Thực nghiệm</td><td class="n">10</td><td>TV3, TV1</td><td><code>experiments.py</code>, <code>generator.py</code>, <code>tools/build_puzzles.py</code>, <code>results/</code></td></tr>
+  <tr><td>§4.6 Báo cáo</td><td class="n">30</td><td>Cả nhóm, TV1 tổng hợp</td><td><code>Report/</code> (mẫu HTML + script dựng PDF)</td></tr>
+  <tr><td>§4.7 Video</td><td class="n">10</td><td>TV5, TV1, TV4</td><td>Kịch bản ở Phụ lục D</td></tr>
+</table>
+
+<h2>1.3 Tiến độ (khoảng 3 tuần)</h2>
+<table>
+  <tr><th>Mốc</th><th>Nội dung</th><th>Điều kiện bàn giao</th></tr>
+  <tr><td>Tuần 1</td><td>Chốt định dạng câu đố JSON, danh sách mẫu manh mối và mở rộng, giao diện giữa encoder – DPLL – agent – engine.</td><td>Một phán quyết hợp lệ chạy xuyên suốt từ logic tới bàn chơi.</td></tr>
+  <tr><td>Tuần 2</td><td>Hoàn tất 6 mẫu cơ bản + mở rộng, DPLL, Logic Agent, kiểm tra duy nhất, bốn điều khiển web, bộ câu đố.</td><td>Chơi tay, Hint, Auto Solve, Restart dùng được; có ca giải được, ca kẹt, ca mâu thuẫn.</td></tr>
+  <tr><td>Tuần 3</td><td>Đo thực nghiệm, viết báo cáo, quay video, đóng gói.</td><td>Bản nén chạy được ở thư mục mới; báo cáo đủ mục; video xem được ở chế độ ẩn danh.</td></tr>
+</table>
+
+<!-- ====================================================================== 2 -->
+<h1>2. Tổng quan hệ thống và kiến trúc</h1>
+
+<h2>2.1 Luật chơi</h2>
+<p>Bàn chơi là lưới <i>N×N</i> (thường 3 ≤ N ≤ 5; chương trình hỗ trợ 2..8 hàng/cột). Hàng đánh số từ trên xuống, cột đánh
+chữ từ trái sang (ô <code>C2</code> là cột C, hàng 2); nhân vật được xếp theo thứ tự chữ cái của tên theo thứ tự hàng-rồi-cột.
+Mỗi nhân vật có trạng thái ẩn <b>Criminal</b> hoặc <b>Innocent</b> và một manh mối có cấu trúc. Một vài thẻ mở sẵn; mọi manh
+mối đã mở đều <b>đúng</b> bất kể chủ thẻ là ai. Người chơi chỉ được lật một thẻ khi trạng thái của nó <b>suy ra được</b> từ
+thông tin công khai hiện tại; lật đúng thì thẻ mở ra và lộ manh mối mới.</p>
+
+<h2>2.2 Kiến trúc</h2>
+<p>Hệ thống tách bạch hai vai trò theo yêu cầu của đề: <b>Game Engine</b> sở hữu toàn bộ câu đố (đáp án ẩn, manh mối của
+thẻ úp) và <b>Logic Agent</b> chỉ nhận <code>PublicState</code> – gồm bố cục bàn, các thẻ đã mở, trạng thái và manh mối của
+chúng. Kiểu <code>PublicState</code> không có trường nào chứa thông tin ẩn, nên agent không thể đọc đáp án dù vô tình.</p>
+{{ARCH_DIAGRAM}}
+<p>Luồng một phán quyết: (1) người chơi/agent gửi <code>(ô, CRIMINAL|INNOCENT)</code>; (2) Engine dựng
+<i>KB<sub>t</sub></i> từ <b>trạng thái công khai</b> và hỏi DPLL; (3) nếu trạng thái đối lập dẫn tới UNSAT và trùng đáp án
+ẩn thì chấp nhận, lật thẻ, thêm trạng thái + manh mối vào tri thức công khai; ngược lại trả <code>NOT_PROVABLE</code> hoặc
+<code>CONTRADICTED</code> và giữ nguyên bàn chơi.</p>
+
+<h2>2.3 Tổ chức mã nguồn</h2>
+<table>
+  <tr><th>Tệp / thư mục</th><th>Vai trò</th></tr>
+  <tr><td><code>main.py</code></td><td>Điểm vào: GUI (mặc định) và các lệnh <code>solve</code>, <code>check</code>, <code>encode</code>, <code>generate</code>, <code>experiments</code>.</td></tr>
+  <tr><td><code>gridlogic/board.py</code></td><td>Tọa độ ô, <code>Status</code>, nhân vật, láng giềng (8 hướng).</td></tr>
+  <tr><td><code>gridlogic/regions.py</code></td><td>Vùng: hàng, cột, láng giềng, danh sách ô + vùng mở rộng.</td></tr>
+  <tr><td><code>gridlogic/clues.py</code></td><td>Manh mối: kiểm tra tham số, <b>bộ đánh giá ngữ nghĩa trực tiếp</b>, công thức logic, câu chữ, ô cần tô sáng.</td></tr>
+  <tr><td><code>gridlogic/logic.py</code>, <code>cnf.py</code>, <code>encoder.py</code></td><td>Cây công thức, kho biến (chính/phụ), chuyển công thức → CNF.</td></tr>
+  <tr><td><code>gridlogic/dpll.py</code></td><td>Bộ giải DPLL tự cài đặt.</td></tr>
+  <tr><td><code>gridlogic/knowledge.py</code></td><td>Dựng <i>KB<sub>t</sub></i>, truy vấn hệ quả, giải thích cho Hint.</td></tr>
+  <tr><td><code>gridlogic/state.py</code>, <code>engine.py</code>, <code>agent.py</code></td><td>Trạng thái công khai, Game Engine, Logic Agent (vòng lặp suy luận, nhật ký, Hint).</td></tr>
+  <tr><td><code>gridlogic/uniqueness.py</code></td><td>Kiểm tra tính duy nhất trên toàn bộ manh mối, kiểm định câu đố.</td></tr>
+  <tr><td><code>gridlogic/generator.py</code>, <code>experiments.py</code></td><td>Sinh câu đố “không đoán”, chạy thực nghiệm.</td></tr>
+  <tr><td><code>webapp/</code></td><td>HTTP server (thư viện chuẩn) + giao diện HTML/CSS/JS.</td></tr>
+  <tr><td><code>puzzles/</code>, <code>results/</code>, <code>tests/</code></td><td>Bộ câu đố, kết quả thực nghiệm, {{TEST_COUNT}} ca kiểm thử <code>unittest</code>.</td></tr>
+</table>
+<p>Toàn bộ thuật toán chính (vùng, mã hóa CNF, DPLL, agent, sinh câu đố) tự cài đặt bằng Python; chương trình chỉ dùng thư
+viện chuẩn nên <code>requirements.txt</code> không có gói bắt buộc.</p>
+
+<h2>2.4 Giao diện</h2>
+<figure><img src="figures/gui-manual.png" style="width:96%">
+<figcaption>Hình 1. Chơi tay trên câu đố hướng dẫn: thử Alice = INNOCENT khi chưa chứng minh được (NOT_PROVABLE), Bruno =
+INNOCENT (CONTRADICTED), rồi Bruno = CRIMINAL được chấp nhận. Manh mối của Alice đang được chọn: các ô được đếm tô vàng, người
+được nêu tên viền tím; bảng bên phải là thống kê <i>KB<sub>t</sub></i> và nhật ký.</figcaption></figure>
+<table>
+  <tr><th>Yêu cầu §4.1</th><th>Cách đáp ứng</th></tr>
+  <tr><td>Hiển thị lưới, tọa độ, tên, nghề, trạng thái, manh mối mở, thẻ úp</td><td>Nhãn cột A, B, … và hàng 1, 2, …; mỗi thẻ có mã ô, avatar theo nghề, tên, nghề; thẻ úp màu xám nét đứt; thẻ mở có huy hiệu CRIMINAL (đỏ) / INNOCENT (xanh) và câu manh mối.</td></tr>
+  <tr><td>Gọi CRIMINAL / INNOCENT</td><td>Chọn thẻ úp → nút CRIMINAL/INNOCENT (hoặc phím C / I).</td></tr>
+  <tr><td>Chấp nhận khi chứng minh được và đúng</td><td>Thẻ lật (hiệu ứng xoay), hiện trạng thái và manh mối mới; manh mối mới được tô sáng ngay.</td></tr>
+  <tr><td>Từ chối, phân biệt hai lý do</td><td>Hộp thông báo <code>NOT_PROVABLE</code> hoặc <code>CONTRADICTED</code> (kèm số lần gọi SAT), thẻ rung, bàn chơi giữ nguyên, manh mối ẩn không bị lộ.</td></tr>
+  <tr><td>Chọn manh mối và tô sáng</td><td>Bấm thẻ đã mở: ô được đếm (vàng), người được nêu tên (viền tím), chủ manh mối (viền đứt); bảng dưới lưới hiện cấu trúc JSON và số mệnh đề CNF của manh mối. Dùng chung bộ phân giải vùng với encoder.</td></tr>
+  <tr><td>Load, Restart, Hint, Auto Solve</td><td>Chọn câu đố có sẵn hoặc tải tệp JSON; Restart về bộ thẻ mở ban đầu; Hint chỉ ra manh mối liên quan và nhân vật chứng minh được (bấm lần hai mới lộ phán quyết); Auto Solve chạy agent từng bước có hoạt ảnh, có thể dừng. Thêm: Agent step, Check uniqueness, Export trace, chọn cách mã hóa/heuristic.</td></tr>
+</table>
+<div class="two">
+<figure><img src="figures/gui-autosolve.png"><figcaption>Hình 2. Sau Auto Solve trên <code>ext-4x4-a</code>; đang chọn manh mối kép (ALL) của Maya.</figcaption></figure>
+<figure><img src="figures/gui-stuck.png"><figcaption>Hình 3. Ca <code>special-stuck-3x3</code>: agent dừng ở STUCK dù toàn bộ manh mối có nghiệm duy nhất.</figcaption></figure>
+</div>
+
+<!-- ====================================================================== 3 -->
+<h1>3. Mô hình hóa bài toán</h1>
+
+<h2>3.1 Biến mệnh đề</h2>
+<p>Mỗi nhân vật <i>i</i> ứng với đúng một biến chính <i>C<sub>i</sub></i>: <i>C<sub>i</sub></i> = True nếu <i>i</i> là
+Criminal, False nếu Innocent. Ánh xạ là <b>tất định</b>: ô thứ <i>k</i> theo thứ tự hàng-rồi-cột nhận mã biến <i>k</i>
+(A1 → 1, B1 → 2, …), độc lập với việc manh mối nào đang mở. Biến phụ do các phép mã hóa sinh ra được cấp mã từ
+<i>N</i>² + 1 trở đi và được thống kê riêng (<code>VarPool.num_primary</code> / <code>num_aux</code>).</p>
+<table style="width:70%;margin-left:auto;margin-right:auto">
+  <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+  <tr><th>1</th><td>C<sub>A1</sub> = 1</td><td>C<sub>B1</sub> = 2</td><td>C<sub>C1</sub> = 3</td></tr>
+  <tr><th>2</th><td>C<sub>A2</sub> = 4</td><td>C<sub>B2</sub> = 5</td><td>C<sub>C2</sub> = 6</td></tr>
+  <tr><th>3</th><td>C<sub>A3</sub> = 7</td><td>C<sub>B3</sub> = 8</td><td>C<sub>C3</sub> = 9</td></tr>
+  <caption>Bảng 3.1. Ánh xạ biến trên lưới 3×3; biến phụ bắt đầu từ 10.</caption>
+</table>
+
+<h2>3.2 Vùng</h2>
+<p>Vùng cơ bản: <b>hàng</b> <code>{"kind":"row","row":2}</code>, <b>cột</b> <code>{"kind":"col","col":"B"}</code>,
+<b>láng giềng</b> <code>{"kind":"neighbors","of":"B2"}</code> (8 hướng, bỏ chính ô đó, bỏ ô ngoài bàn – ô giữa/cạnh/góc trên 3×3
+có 8/5/3 láng giềng) và <b>danh sách ô</b> <code>{"kind":"cells","cells":[...]}</code> (các ô phân biệt). Vùng mở rộng (biểu
+thức vùng nâng cao): <code>common_neighbors</code> (giao các tập láng giềng), <code>intersection</code>, <code>union</code>,
+<code>edge</code> (viền), <code>corners</code> (4 góc), <code>all</code>, <code>direction</code> (các ô bên trái/phải/trên/dưới
+một người) và <code>between</code> (các ô nằm giữa hai người cùng hàng/cột). Mọi vùng được phân giải thành bộ ô phân biệt theo
+thứ tự hàng-rồi-cột; vùng rỗng, ô ngoài bàn, danh sách trùng ô, <code>between</code> không thẳng hàng… đều bị từ chối.</p>
+
+<h2>3.3 Ngữ nghĩa manh mối</h2>
+<p>Ký hiệu ℓ<sub>i</sub> = <i>C<sub>i</sub></i> nếu manh mối đếm Criminal và ℓ<sub>i</sub> = ¬<i>C<sub>i</sub></i> nếu đếm
+Innocent (trường tùy chọn <code>status</code>, mặc định CRIMINAL; “đúng <i>k</i> người vô tội” tương đương “đúng |R| − k
+người phạm tội”). Với manh mối đếm, đề yêu cầu <i>k</i> nguyên và 0 ≤ <i>k</i> ≤ |R|; chương trình kiểm tra điều này (kể cả
+từ chối <code>true</code>/<code>1.5</code>). <code>NO</code> được hiểu là <code>EXACTLY(0, R)</code>.</p>
+<table>
+  <tr><th>Mẫu</th><th>Ví dụ câu chữ</th><th>Nội dung logic</th></tr>
+  <tr><td><code>FACT(i, s)</code></td><td>Iris is innocent.</td><td>¬C<sub>i</sub> (hoặc C<sub>i</sub>)</td></tr>
+  <tr><td><code>SAME(i, j)</code></td><td>Iris and Daniel have the same status.</td><td>C<sub>i</sub> ↔ C<sub>j</sub></td></tr>
+  <tr><td><code>DIFFERENT(i, j)</code></td><td>Ada and Dmitri have different statuses.</td><td>C<sub>i</sub> ⊕ C<sub>j</sub></td></tr>
+  <tr><td><code>EXACTLY(k, R)</code></td><td>There are exactly 2 criminals in column B.</td><td>Σ<sub>i∈R</sub> ℓ<sub>i</sub> = k</td></tr>
+  <tr><td><code>AT_LEAST(k, R)</code></td><td>There are at least 2 criminals among Chloe's neighbors.</td><td>Σ ℓ<sub>i</sub> ≥ k</td></tr>
+  <tr><td><code>AT_MOST(k, R)</code></td><td>There is at most 1 criminal in row 1.</td><td>Σ ℓ<sub>i</sub> ≤ k</td></tr>
+  <tr><th colspan="3">Mở rộng (đề yêu cầu ít nhất hai; nhóm cài đặt năm nhóm)</th></tr>
+  <tr><td><code>PARITY(EVEN|ODD, R)</code></td><td>There is an odd number of criminals in column A.</td><td>⊕<sub>i∈R</sub> ℓ<sub>i</sub> = 1 (ODD) / 0 (EVEN)</td></tr>
+  <tr><td><code>COMPARE(MORE|FEWER|EQUAL, R<sub>1</sub>, R<sub>2</sub>)</code></td><td>There are more criminals in column B than in column C.</td><td>Σ<sub>R1</sub> ℓ &gt; / &lt; / = Σ<sub>R2</sub> ℓ</td></tr>
+  <tr><td><code>CONNECTED(R)</code> (R là đoạn thẳng)</td><td>All criminals in row 3 are connected.</td><td>¬(ℓ<sub>i</sub> ∧ ¬ℓ<sub>j</sub> ∧ ℓ<sub>k</sub>) với mọi i &lt; j &lt; k</td></tr>
+  <tr><td>Manh mối kép <code>ALL / ANY / NOT / IMPLIES</code></td><td>If Iris is a criminal, then there is at least 1 criminal among Grace's neighbors.</td><td>φ ∧ ψ, φ ∨ ψ, ¬φ, φ → ψ</td></tr>
+  <tr><td>Vùng nâng cao (mục 3.2)</td><td>There are no criminals among the common neighbors of Lucia and Hector.</td><td>dùng làm R cho mọi mẫu đếm</td></tr>
+</table>
+<p><b>Bộ đánh giá ngữ nghĩa trực tiếp.</b> Mỗi lớp manh mối có <code>evaluate(board, assignment)</code> tính trực tiếp trên một
+phép gán đầy đủ (đếm số người theo trạng thái trong vùng rồi so với <i>k</i>, so sánh hai số đếm, kiểm tra tính liên tục…),
+<b>không</b> gọi encoder. Bộ đánh giá được dùng để (i) kiểm tra dữ liệu câu đố (mọi manh mối phải đúng với đáp án ẩn),
+(ii) sinh câu đố và (iii) kiểm thử chéo encoder: với mọi manh mối, mọi cách mã hóa và mọi phép gán các ô liên quan,
+CNF ∧ phép gán là SAT khi và chỉ khi <code>evaluate</code> trả True (mục 7).</p>
+
+<h2>3.4 Cơ sở tri thức và giao thức lật thẻ</h2>
+<div class="math"><i>KB<sub>t</sub></i> = CNF(các manh mối đã mở) ∧ ⋀<sub>i đã biết</sub> (C<sub>i</sub> hoặc ¬C<sub>i</sub>)</div>
+<p>Trạng thái đã biết gồm thẻ mở sẵn và các phán quyết đã được chấp nhận, mỗi cái là một mệnh đề đơn. Trạng thái ẩn và manh
+mối của thẻ úp không bao giờ có trong <i>KB<sub>t</sub></i>: <code>KnowledgeBase.from_public</code> chỉ nhận
+<code>PublicState</code>. CNF được dựng lại tự động ở mỗi bước từ dữ liệu có cấu trúc – không có CNF viết tay cho câu đố nào.</p>
+<table>
+  <tr><th>Kết quả truy vấn trên nhân vật i</th><th>Phân loại</th><th>Phản hồi khi người chơi chọn</th></tr>
+  <tr><td><i>KB<sub>t</sub></i> UNSAT</td><td>INCONSISTENT</td><td><code>INCONSISTENT</code> – dữ kiện công khai mâu thuẫn</td></tr>
+  <tr><td><i>KB<sub>t</sub></i> ∧ ¬C<sub>i</sub> UNSAT</td><td>CRIMINAL</td><td>chọn CRIMINAL → <code>ACCEPTED</code>; chọn INNOCENT → <code>CONTRADICTED</code></td></tr>
+  <tr><td><i>KB<sub>t</sub></i> ∧ C<sub>i</sub> UNSAT</td><td>INNOCENT</td><td>chọn INNOCENT → <code>ACCEPTED</code>; chọn CRIMINAL → <code>CONTRADICTED</code></td></tr>
+  <tr><td>cả hai SAT</td><td>UNKNOWN</td><td><code>NOT_PROVABLE</code> (kể cả khi đoán trùng đáp án ẩn)</td></tr>
+</table>
+<p>Thêm hai mã phụ: <code>ALREADY_REVEALED</code> (thẻ đã mở) và <code>PUZZLE_ERROR</code> (trạng thái chứng minh được khác đáp án
+ẩn – chỉ xảy ra khi dữ liệu câu đố sai). Phán quyết bị từ chối không làm thay đổi trạng thái trò chơi.</p>
+
+<!-- ====================================================================== 4 -->
+<h1>4. Mã hóa CNF</h1>
+
+<h2>4.1 Quy trình tự động</h2>
+<p>Mỗi manh mối được dịch qua hai tầng: <code>clue.formula()</code> trả về cây công thức (<code>Atom</code>, <code>And</code>,
+<code>Or</code>, <code>Not</code>, <code>Iff</code>, <code>Xor</code>, <code>Card</code>, <code>CountCompare</code>) đúng như cột
+“nội dung logic” ở trên; sau đó <code>FormulaEncoder</code> chuyển cây sang CNF. Bộ mã hóa có hai chế độ:</p>
+<ul>
+  <li><b>assert(φ)</b>: thêm các mệnh đề đúng khi và chỉ khi φ đúng (có thể kèm biến phụ được lượng từ tồn tại). Hội được tách
+  thành từng phần; phủ định được đẩy xuống một tầng (luật De Morgan, ¬(Σ ≤ k) ≡ Σ ≥ k+1, ¬PARITY đổi chẵn/lẻ…).</li>
+  <li><b>reify(φ)</b>: trả về một literal <i>r</i> tương đương φ (định nghĩa kiểu Tseitin), dùng cho công thức lồng nhau như
+  các vế của manh mối kép.</li>
+</ul>
+
+<h2>4.2 Dẫn xuất manh mối nhị phân</h2>
+<p><b>SAME(Iris, Daniel)</b> – manh mối của Hugo trong câu đố hướng dẫn (Iris = C3, Daniel = A2):</p>
+<div class="math">C<sub>C3</sub> ↔ C<sub>A2</sub> ≡ (C<sub>C3</sub> → C<sub>A2</sub>) ∧ (C<sub>A2</sub> → C<sub>C3</sub>)
+ ≡ (¬C<sub>C3</sub> ∨ C<sub>A2</sub>) ∧ (C<sub>C3</sub> ∨ ¬C<sub>A2</sub>)</div>
+<p>Bước 1 tách tương đương thành hai phép kéo theo; bước 2 dùng <i>p → q ≡ ¬p ∨ q</i>. Kết quả: 2 mệnh đề, không biến phụ.
+Tương tự <b>DIFFERENT(i, j)</b>: C<sub>i</sub> ⊕ C<sub>j</sub> ≡ (C<sub>i</sub> ∨ C<sub>j</sub>) ∧ (¬C<sub>i</sub> ∨ ¬C<sub>j</sub>)
+(“ít nhất một người phạm tội” và “không phải cả hai”). Đầu ra thật của chương trình:</p>
+<pre>{{CNF_SAME}}</pre>
+
+<h2>4.3 Dẫn xuất manh mối đếm</h2>
+<p>Với vùng R có n literal ℓ<sub>1..n</sub>, mã hóa tổ hợp trực tiếp (không biến phụ) dựa trên hai nhận xét:</p>
+<ul>
+  <li><b>Σ ℓ ≤ k</b> ⟺ không có k+1 literal nào cùng đúng ⟺ ⋀<sub>S⊆R, |S|=k+1</sub> (⋁<sub>i∈S</sub> ¬ℓ<sub>i</sub>) –
+  C(n, k+1) mệnh đề.</li>
+  <li><b>Σ ℓ ≥ k</b> ⟺ nhiều nhất n−k literal sai ⟺ mọi tập n−k+1 literal chứa ít nhất một literal đúng ⟺
+  ⋀<sub>|S|=n−k+1</sub> (⋁<sub>i∈S</sub> ℓ<sub>i</sub>) – C(n, n−k+1) mệnh đề.</li>
+  <li><b>Σ ℓ = k</b> là hội của hai phần trên; k = 0 cho n mệnh đề đơn ¬ℓ<sub>i</sub>, k = n cho n mệnh đề đơn ℓ<sub>i</sub>.</li>
+</ul>
+<p><b>Ví dụ 1</b> – “exactly one of A1, B1, C1 is a criminal” (EXACTLY 1 trên hàng 1 của lưới 3×3): ít nhất 1 cho C(3,3) = 1
+mệnh đề (C<sub>A1</sub> ∨ C<sub>B1</sub> ∨ C<sub>C1</sub>); nhiều nhất 1 cho C(3,2) = 3 mệnh đề cấm từng cặp:
+(¬C<sub>A1</sub> ∨ ¬C<sub>B1</sub>), (¬C<sub>A1</sub> ∨ ¬C<sub>C1</sub>), (¬C<sub>B1</sub> ∨ ¬C<sub>C1</sub>). Tổng 4 mệnh đề – được
+kiểm chứng tự động trong <code>tests/test_encoding.py</code>.</p>
+<p><b>Ví dụ 2</b> – manh mối của Alice “There are exactly 2 criminals among Alice's neighbors”. Láng giềng của A1 trên 3×3 là
+{B1, A2, B2} (n = 3, k = 2). Ít nhất 2 ⇒ mọi tập 3−2+1 = 2 ô có một người phạm tội (3 mệnh đề); nhiều nhất 2 ⇒ tập 3 ô duy nhất
+có ít nhất một người vô tội (1 mệnh đề):</p>
+<pre>{{CNF_COUNT_DIRECT}}</pre>
+<p>Khi KB có thêm “Bruno (B1) là Criminal” và “Emma (B2) là Innocent”, lan truyền đơn vị trên (C<sub>A2</sub> ∨ C<sub>B2</sub>)
+cho ngay C<sub>A2</sub> = True – đúng là lý do Daniel (A2) bị chứng minh phạm tội ở bước 3 của nhật ký (mục 5.6).</p>
+
+<h2>4.4 Mã hóa đếm có biến phụ</h2>
+<p>Mã hóa tổ hợp tăng theo C(n, k) nên không phù hợp với vùng lớn (ví dụ viền của lưới 5×5 có 16 ô, C(16,8) = 12 870 mệnh đề).
+Chương trình cài thêm:</p>
+<ul>
+  <li><b>Bộ đếm tuần tự (Sinz, 2005)</b> cho Σ ≤ k: biến phụ s<sub>i,j</sub> nghĩa là “trong ℓ<sub>1..i</sub> có ít nhất j literal
+  đúng”; O(n·k) mệnh đề và (n−1)·k biến phụ. Σ ≥ k được viết thành Σ ¬ℓ ≤ n − k.</li>
+  <li><b>Totalizer (Bailleux &amp; Boufkhad, 2003)</b>: cây hợp nhất cho các đầu ra o<sub>j</sub> <b>tương đương</b> với
+  “Σ ≥ j” (cài cả hai chiều), dùng cho reify và cho COMPARE.</li>
+  <li>Chế độ <code>auto</code> (mặc định): dùng mã hóa tổ hợp nếu cần ≤ 128 mệnh đề, ngược lại dùng bộ đếm tuần tự.</li>
+</ul>
+<p>Cùng manh mối của Alice với bộ đếm tuần tự (thêm biến phụ <code>seq#…</code>):</p>
+<pre>{{CNF_COUNT_SEQ}}</pre>
+
+<h2>4.5 Mã hóa các mở rộng</h2>
+<ul>
+  <li><b>PARITY</b>: với n ≤ 4, cấm trực tiếp 2<sup>n−1</sup> phép gán sai tính chẵn lẻ; với n lớn hơn dùng chuỗi cổng XOR
+  Tseitin t<sub>1</sub> = ℓ<sub>1</sub>, t<sub>i</sub> ↔ t<sub>i−1</sub> ⊕ ℓ<sub>i</sub> (4 mệnh đề/cổng:
+  (¬t ∨ a ∨ b), (¬t ∨ ¬a ∨ ¬b), (t ∨ ¬a ∨ b), (t ∨ a ∨ ¬b)) rồi khẳng định t<sub>n</sub> (lẻ) hoặc ¬t<sub>n</sub> (chẵn).</li>
+  <li><b>COMPARE</b>: bỏ các ô chung của hai vùng (không ảnh hưởng hiệu số), dựng totalizer a (vùng trái), b (vùng phải). Khi đó
+  |L| &gt; |R| ⟺ ∀j ≥ 0: (|R| ≥ j) → (|L| ≥ j+1), tức các mệnh đề (¬b<sub>j</sub> ∨ a<sub>j+1</sub>) với b<sub>0</sub> = ⊤, a<sub>p+1</sub> = ⊥;
+  EQUAL là (¬b<sub>j</sub> ∨ a<sub>j</sub>) ∧ (¬a<sub>j</sub> ∨ b<sub>j</sub>).</li>
+  <li><b>CONNECTED</b> trên một đoạn thẳng: các ô cùng trạng thái liền nhau ⟺ không có mẫu “có – không – có”, tức
+  (¬ℓ<sub>i</sub> ∨ ℓ<sub>j</sub> ∨ ¬ℓ<sub>k</sub>) với mọi i &lt; j &lt; k, không biến phụ.</li>
+  <li><b>Manh mối kép</b>: ALL được khẳng định từng phần; ANY/IMPLIES thành một mệnh đề trên các literal reify của từng vế;
+  NOT được đẩy phủ định xuống (NNF), nếu không được thì reify rồi khẳng định ¬r.</li>
+</ul>
+<pre>{{CNF_EXTENSIONS}}</pre>
+
+<h2>4.6 Kích thước CNF của bộ câu đố</h2>
+<p>Bảng sau mã hóa <b>toàn bộ</b> manh mối của mỗi câu đố cùng các thẻ mở sẵn (cấu hình mặc định <code>auto</code>) – đây cũng là
+CNF của phép kiểm tra tính duy nhất ở mục 5.5.</p>
+{{CNF_SIZE_TABLE}}
+
+<!-- ====================================================================== 5 -->
+<h1>5. Thuật toán</h1>
+
+<h2>5.1 DPLL</h2>
+<pre>DPLL(F, assumptions):
+    gán các mệnh đề đơn của F và các giả định; nếu mâu thuẫn → UNSAT
+    return SEARCH()
+
+SEARCH():
+    if not UNIT_PROPAGATE(): return False          # phát hiện xung đột
+    (tùy chọn) gán các literal thuần
+    x ← biến chưa gán đầu tiên theo thứ tự tất định  # "first": mã nhỏ nhất (biến chính trước)
+    if không còn x: return True                     # mọi mệnh đề đã thỏa
+    decisions += 1
+    for v in (False, True):                         # phase mặc định: thử Innocent trước
+        mark ← |trail|; gán x = v
+        if SEARCH(): return True                    # đệ quy
+        hoàn tác trail về mark; backtracks += 1      # quay lui
+    return False</pre>
+<ul>
+  <li><b>Lan truyền đơn vị</b> dùng hai literal canh (two watched literals): khi một literal bị gán sai, chỉ duyệt các mệnh đề
+  đang canh nó, tìm literal thay thế; nếu không có thì literal canh còn lại bị ép (propagation) hoặc phát sinh xung đột.
+  Quay lui chỉ cần xóa phép gán trên trail, không phải cập nhật danh sách canh.</li>
+  <li><b>Chọn biến tất định</b>: <code>first</code> (mã nhỏ nhất – biến chính trước biến phụ) hoặc <code>occurrence</code>
+  (xuất hiện nhiều nhất, hòa thì mã nhỏ). Biến không có trong mệnh đề nào được gán False khi trả mô hình, nên SAT luôn đi kèm
+  phép gán <b>đầy đủ</b>.</li>
+  <li><b>Giả định</b>: <code>solve(assumptions)</code> nhận các literal tạm, nên một bộ giải dựng từ <i>KB<sub>t</sub></i> trả lời
+  mọi truy vấn <i>KB<sub>t</sub></i> ∧ ±C<sub>i</sub> mà không phải dựng lại.</li>
+  <li><b>Bộ đếm</b>: <i>decisions</i> – số điểm phân nhánh; <i>propagations</i> – số literal được gán bởi lan truyền (gồm mệnh đề
+  đơn); <i>backtracks</i> – số nhánh bị hoàn tác sau xung đột; <i>conflicts</i>; thời gian (ms). Có thêm hạn thời gian (deadline)
+  để ghi nhận TIMEOUT.</li>
+</ul>
+
+<h2>5.2 Phân loại bằng hệ quả logic</h2>
+<p>Một mô hình chỉ là một khả năng; phán quyết chỉ hợp lệ khi đúng trong <b>mọi</b> mô hình. Vì vậy với mỗi nhân vật chưa biết,
+agent hỏi <i>KB<sub>t</sub></i> ∧ C<sub>i</sub> và <i>KB<sub>t</sub></i> ∧ ¬C<sub>i</sub> rồi phân loại theo bảng ở mục 3.4.
+<b>Tối ưu tái dùng mô hình (witness)</b>: mọi mô hình tìm được (kể cả của phép kiểm tra <i>KB<sub>t</sub></i>) được lưu lại; nếu
+đã có mô hình trong đó C<sub>i</sub> = v thì <i>KB<sub>t</sub></i> ∧ (C<sub>i</sub> = v) chắc chắn SAT nên bỏ qua lần gọi đó
+(ghi <code>SKIPPED</code> trong nhật ký). Tối ưu này đúng đắn vì chỉ bỏ qua các truy vấn mà kết quả SAT đã được chứng kiến; nó
+không bao giờ bỏ qua truy vấn UNSAT – loại truy vấn duy nhất tạo ra phán quyết. Kiểm thử
+<code>test_witness_pruning_never_changes_classification</code> xác nhận hai chế độ cho cùng phân loại trên mọi câu đố.</p>
+
+<h2>5.3 Vòng lặp suy luận</h2>
+<pre>RUN(engine):
+    loop:
+        S ← engine.public_state()                       # chỉ thông tin công khai
+        if mọi thẻ đã mở: return SOLVED
+        KB ← CNF(S.clues) ∧ units(S.known)
+        if KB UNSAT: return INCONSISTENT
+        với mỗi ô chưa biết (thứ tự hàng-rồi-cột): phân loại CRIMINAL / INNOCENT / UNKNOWN
+        F ← các ô bị ép
+        if F rỗng: return STUCK                        # không đoán
+        mode "step": nộp F[0];  mode "wave": nộp toàn bộ F
+        engine kiểm tra lại, lật thẻ, trả manh mối mới; ghi nhật ký bước</pre>
+<p>Mỗi bước ghi: số bước, mã các manh mối đang dùng, kích thước <i>KB<sub>t</sub></i>, từng truy vấn SAT và kết quả (kèm bộ
+đếm), phân loại, phán quyết, phản hồi của Engine, mã + nội dung manh mối vừa mở (xuất JSON bằng <code>main.py solve --trace</code>
+hoặc nút Export trace). <b>Tính đơn điệu</b>: <i>KB<sub>t+1</sub></i> ⊇ <i>KB<sub>t</sub></i> nên ô đã bị ép vẫn bị ép ở bước sau;
+do đó mọi thứ tự lật các ô bị ép (step hay wave) đều đi tới cùng một trạng thái cuối – điều này cũng được kiểm tra bằng thực nghiệm
+(mục 6). Trạng thái kết thúc: SOLVED, STUCK, INCONSISTENT, TIMEOUT (và ERROR nếu Engine từ chối – không xảy ra với dữ liệu hợp lệ).</p>
+
+<h2>5.4 Hint</h2>
+<p>Hint chạy phân loại trên trạng thái công khai (không đọc đáp án ẩn). Với tối đa 4 ô bị ép đầu tiên, agent tìm tập manh mối
+tối thiểu đủ để chứng minh (xóa dần từng manh mối, giữ lại nếu bỏ đi thì <i>KB</i> ∧ ¬phán quyết thành SAT; manh mối không nhắc
+tới ô đích được thử bỏ trước), rồi chọn ô có lời giải thích ngắn nhất. Giao diện tô sáng các manh mối đó và ô đích; bấm Hint
+lần hai mới hiện phán quyết.</p>
+
+<h2>5.5 Kiểm tra tính duy nhất</h2>
+<p>Phép kiểm tra tách biệt khỏi ván đang chơi và dùng <b>toàn bộ</b> manh mối: tìm một mô hình M của CNF(tất cả manh mối) ∧ (các
+thẻ mở sẵn); nếu UNSAT → <code>NO_SOLUTION</code>. Ngược lại thêm mệnh đề chặn ⋁<sub>i</sub> (C<sub>i</sub> ≠ M(C<sub>i</sub>))
+<b>chỉ trên biến chính</b> rồi giải lại: UNSAT → <code>UNIQUE</code>, SAT → <code>MULTIPLE</code>. Vì biến phụ không bị chặn, hai
+mô hình chỉ khác nhau ở biến phụ không bị tính là hai lời giải. Chương trình cũng báo kết quả khi chỉ dùng manh mối (không thẻ
+mở sẵn) và kiểm tra riêng khả năng giải tuần tự. Ba thuộc tính này độc lập: <code>special-stuck-3x3</code> có nghiệm duy nhất nhưng
+không giải được nếu không đoán; câu đố hướng dẫn chỉ duy nhất khi tính cả thẻ mở sẵn.</p>
+
+<h2>5.6 Ví dụ nhật ký từ chương trình</h2>
+<p>Ba bước đầu của agent (chế độ step) trên câu đố hướng dẫn, trích nguyên văn từ <code>RunResult</code>:</p>
+{{TRACE_EXCERPT}}
+
+<h2>5.7 Sinh câu đố</h2>
+<p>Bộ câu đố được sinh bằng chính bộ suy luận: chọn đáp án ẩn và thẻ mở đầu; mỗi thẻ mở nhận một manh mối ngẫu nhiên đúng với đáp án
+và nhắc tới ít nhất một thẻ úp; tìm mọi ô bị ép và lật cả “đợt”; nếu không ô nào bị ép thì rút lại manh mối của các thẻ vừa mở cho
+đến khi có tiến triển. Nhờ tính đơn điệu, câu đố sinh ra luôn giải được không cần đoán và có nghiệm duy nhất cùng các thẻ mở sẵn;
+<code>tools/build_puzzles.py</code> kiểm định lại từng câu (manh mối đúng, duy nhất, giải tuần tự được).</p>
+
+<!-- ====================================================================== 6 -->
+<h1>6. Thực nghiệm</h1>
+
+<h2>6.1 Thiết lập</h2>
+<ul>
+  <li>Môi trường: {{ENV}}. Thời gian là thời gian thực của cả lần chạy agent, lấy <b>trung vị của {{REPEATS}} lần chạy</b>;
+  các bộ đếm là tất định. Ngưỡng dừng {{TIME_LIMIT}} giây/lần chạy.</li>
+  <li>Số biến/mệnh đề lấy ở <i>KB</i> của trạng thái công khai cuối lần chạy; bộ đếm SAT cộng dồn trên mọi truy vấn của agent
+  trong Auto Solve (các lần kiểm tra lại của Engine không tính). “Steps” là số lần lật thẻ (chế độ step: mỗi bước một thẻ),
+  “waves” là số đợt lật khi lật mọi ô bị ép cùng lúc.</li>
+  <li>Mọi cấu hình chạy trên <b>cùng một bộ {{N_PUZZLES}} câu đố</b>, gồm cả các ca thất bại cố ý; không ca nào bị loại.</li>
+</ul>
+{{PUZZLE_TABLE}}
+
+<h2>6.2 Kết quả cấu hình chuẩn</h2>
+<p>Cấu hình chuẩn: chế độ step, mã hóa <code>auto</code>, chọn biến <code>first</code>, tái dùng mô hình bật.</p>
+<div class="kpi">
+  <div><b>{{KPI_SOLVED}}</b>câu đố hợp lệ giải xong</div>
+  <div><b>{{KPI_SAT}}</b>lần gọi SAT (tổng)</div>
+  <div><b>{{KPI_MAXMS}} ms</b>lâu nhất (5×5)</div>
+  <div><b>{{KPI_FAIL}}</b>ca thất bại đúng dự kiến</div>
+</div>
+{{BASELINE_TABLE}}
+
+<h2>6.3 So sánh cách mã hóa đếm</h2>
+{{ENCODING_TABLE}}
+{{CHART_ENCODING}}
+
+<h2>6.4 So sánh chiến lược của agent</h2>
+{{AGENT_TABLE}}
+{{CHART_SAT}}
+
+<h2>6.5 So sánh heuristic của DPLL</h2>
+{{SOLVER_TABLE}}
+
+<h2>6.6 Kiểm tra tính duy nhất</h2>
+{{UNIQUENESS_TABLE}}
+
+<h2>6.7 Thử tải (6×6 – 8×8) và timeout</h2>
+<p>Ngoài bộ câu đố chuẩn, script sinh thêm câu đố 3×3 … 8×8 (hai seed cố định mỗi kích thước, 20% manh mối mở rộng) và chạy với cấu
+hình chuẩn và cấu hình nặng nhất (<code>seq-no-witness</code>: bộ đếm tuần tự, luôn hỏi cả hai truy vấn). Dòng cuối chạy lại ca chậm
+nhất với ngưỡng thời gian cố ý rất thấp để minh họa việc ghi nhận TIMEOUT thay vì loại bỏ.</p>
+{{CHART_SCALING}}
+{{SCALING_TABLE}}
+
+<h2>6.8 Nhận xét</h2>
+{{OBSERVATIONS}}
+
+<h2>6.9 Ca thất bại và giới hạn</h2>
+<ul>
+  <li><b>STUCK</b> – <code>special-stuck-3x3</code>: manh mối mở đầu “exactly 4 criminals among Emma's neighbors” không ép được ô
+  nào; agent dừng sau {{STUCK_CALLS}} lần gọi SAT dù toàn bộ manh mối có nghiệm duy nhất. <code>special-multi-3x3</code>: sau hai lần
+  lật, mọi ô còn lại đều UNKNOWN vì câu đố có nhiều nghiệm. Đây là hành vi đúng của tác tử “không đoán”.</li>
+  <li><b>INCONSISTENT</b> – <code>special-inconsistent-3x3</code>: hai manh mối mở sẵn mâu thuẫn (một trong hai sai so với đáp án
+  ẩn); <i>KB</i> UNSAT ngay ở lần gọi đầu, agent dừng, GUI cảnh báo dữ liệu câu đố có manh mối sai.</li>
+  <li><b>TIMEOUT</b> – không lần chạy nào trên bộ chuẩn chạm ngưỡng {{TIME_LIMIT}} s; TIMEOUT chỉ xuất hiện ở ca minh họa
+  với ngưỡng cố ý thấp.</li>
+  <li><b>Giới hạn</b>: DPLL không học mệnh đề (không phải CDCL) và quay lui theo thứ tự thời gian, nên số quyết định tăng nhanh ở
+  bàn 7×7–8×8 (mục 6.7); agent dựng lại <i>KB</i> và bộ giải ở mỗi bước thay vì giải gia tăng; CONNECTED chỉ hỗ trợ vùng là đoạn
+  thẳng (liên thông 2 chiều cần mã hóa tính đạt tới); câu chữ của manh mối do chương trình sinh nên đôi khi còn cứng; bộ câu đố do
+  máy sinh nên độ khó chưa được hiệu chỉnh theo cảm nhận người chơi.</li>
+</ul>
+
+<!-- ====================================================================== 7 -->
+<h1>7. Kiểm thử và đánh giá mức độ hoàn thành</h1>
+<p>Chạy <code>python -m unittest discover -s tests</code> trong thư mục <code>Source</code>: {{TEST_COUNT}} ca kiểm thử, tất cả đạt
+({{TEST_TIME}}). Các nhóm chính:</p>
+<table>
+  <tr><th>Tệp</th><th>Nội dung kiểm tra</th></tr>
+  <tr><td><code>test_regions_clues.py</code></td><td>Láng giềng ô giữa/cạnh/góc = 8/5/3; mọi kiểu vùng; từ chối vùng/tham số sai; k = 0 và k = |R|; bộ đánh giá trực tiếp; câu chữ.</td></tr>
+  <tr><td><code>test_encoding.py</code></td><td>CNF ⟺ bộ đánh giá trực tiếp trên mọi phép gán các ô liên quan, cho {{ENC_CLUES}} manh mối (thủ công + ngẫu nhiên) × 4 cấu hình mã hóa, cả chế độ assert lẫn reify; hai dẫn xuất ở mục 4; ánh xạ biến tất định.</td></tr>
+  <tr><td><code>test_dpll.py</code></td><td>So với vét cạn trên 250 công thức ngẫu nhiên × 4 cấu hình; ví dụ trong đề; mệnh đề rỗng; phép gán đầy đủ; bộ đếm (bài toán chuồng bồ câu); dùng lại bộ giải; deadline.</td></tr>
+  <tr><td><code>test_agent_engine.py</code></td><td>Ví dụ §3.4 của đề; INCONSISTENT; agent chỉ cần <code>PublicState</code>; NOT_PROVABLE kể cả khi đoán đúng; CONTRADICTED/ACCEPTED/ALREADY_REVEALED; mọi câu đố ở cả hai chế độ; phát lại nhật ký để xác nhận mỗi phán quyết suy ra được từ các manh mối mở trước đó; Hint; kiểm tra 0/1/nhiều nghiệm.</td></tr>
+  <tr><td><code>test_server.py</code></td><td>API web: dữ liệu trả về không chứa trạng thái/manh mối của thẻ úp; phiên độc lập giữa các tab; tải tệp; kiểm tra duy nhất.</td></tr>
+</table>
+<h2>Đối chiếu yêu cầu</h2>
+<table>
+  <tr><th>Yêu cầu</th><th>Trạng thái</th><th>Minh chứng</th></tr>
+  <tr><td>§4.1 GUI, 4 điều khiển, NOT_PROVABLE / CONTRADICTED, tô sáng, tách Engine/Agent</td><td class="ok">Hoàn thành</td><td>Mục 2.4, Hình 1–3, <code>test_server.py</code></td></tr>
+  <tr><td>§4.2 Ánh xạ tất định, kiểm tra tham số, CNF tự động, mệnh đề đơn, thống kê, bộ đánh giá trực tiếp</td><td class="ok">Hoàn thành</td><td>Mục 3–4, <code>test_encoding.py</code></td></tr>
+  <tr><td>≥ 2 mở rộng</td><td class="ok">5 nhóm</td><td>PARITY, COMPARE, CONNECTED, manh mối kép, vùng nâng cao</td></tr>
+  <tr><td>§4.3 DPLL: lan truyền, xung đột, chọn biến tất định, đệ quy/quay lui, SAT + mô hình đầy đủ / UNSAT, bộ đếm + thời gian</td><td class="ok">Hoàn thành</td><td>Mục 5.1, <code>test_dpll.py</code>; thêm literal thuần (tùy chọn)</td></tr>
+  <tr><td>§4.4 Phân loại, không đoán, nhận manh mối từ Engine, nhật ký, kiểm tra duy nhất, Hint không đọc đáp án</td><td class="ok">Hoàn thành</td><td>Mục 5.2–5.6</td></tr>
+  <tr><td>§4.5 Thực nghiệm 3×3, 4×4 (+5×5), đủ 6 nhóm số liệu, giữ ca lỗi</td><td class="ok">Hoàn thành</td><td>Mục 6, <code>results/</code></td></tr>
+  <tr><td>§4.7 Video</td><td class="bad">Nhóm thực hiện</td><td>Kịch bản ở Phụ lục D</td></tr>
+</table>
+
+<!-- ====================================================================== 8 -->
+<h1>8. Tài liệu tham khảo</h1>
+<ol>
+  <li>S. Russell, P. Norvig. <i>Artificial Intelligence: A Modern Approach</i>, 4th ed., Pearson, 2020 – Chương 7 (Logical Agents: hệ quả logic, chứng minh bằng phản chứng, DPLL).</li>
+  <li>M. Davis, H. Putnam. A Computing Procedure for Quantification Theory. <i>Journal of the ACM</i> 7(3), 1960.</li>
+  <li>M. Davis, G. Logemann, D. Loveland. A Machine Program for Theorem-Proving. <i>Communications of the ACM</i> 5(7), 1962.</li>
+  <li>M. Moskewicz, C. Madigan, Y. Zhao, L. Zhang, S. Malik. Chaff: Engineering an Efficient SAT Solver. <i>DAC</i> 2001 (two watched literals).</li>
+  <li>C. Sinz. Towards an Optimal CNF Encoding of Boolean Cardinality Constraints. <i>CP</i> 2005 (sequential counter).</li>
+  <li>O. Bailleux, Y. Boufkhad. Efficient CNF Encoding of Boolean Cardinality Constraints. <i>CP</i> 2003 (totalizer).</li>
+  <li>G. S. Tseitin. On the Complexity of Derivation in Propositional Calculus. 1968 (biến định nghĩa / reification).</li>
+  <li>A. Biere, M. Heule, H. van Maaren, T. Walsh (eds.). <i>Handbook of Satisfiability</i>, IOS Press, 2009/2021 – các chương về DPLL và mã hóa ràng buộc.</li>
+  <li>Griductive – trang chơi và hướng dẫn chính thức (liên kết trong đề bài CSC14003 Đồ án 2).</li>
+  <li>Python Software Foundation. Tài liệu thư viện chuẩn: <code>http.server</code>, <code>unittest</code>, <code>dataclasses</code>.</li>
+  <li>Khoa CNTT, ĐH KHTN – ĐHQG TP.HCM. Đề bài CSC14003 Project 2: Griductive Solver.</li>
+</ol>
+
+<!-- ====================================================================== APPENDIX -->
+<h1>Phụ lục A. Sử dụng AI tạo sinh</h1>
+<div class="todo">Phần này phải phản ánh đúng cách nhóm đã sử dụng AI. Nội dung dưới đây mô tả phiên làm việc đã tạo ra bản mã
+nguồn và bản nháp báo cáo này; nhóm cần bổ sung các prompt/phiên khác (nếu có) và mô tả phần mỗi thành viên đã tự kiểm tra,
+chỉnh sửa và hiểu rõ (đề lưu ý có thể vấn đáp ngẫu nhiên).</div>
+<table>
+  <tr><th>Công cụ</th><td>Claude Code (mô hình Claude Opus 5.5 của Anthropic), chạy trong ứng dụng Claude trên Windows.</td></tr>
+  <tr><th>Prompt chính</th><td><code>@"AI - Project 2.pdf" Hãy làm toàn bộ project này cho tôi. Sau đó push lên https://github.com/Tuanpc309/CS-AI-PROJECT-2</code></td></tr>
+  <tr><th>Phạm vi AI tạo ra</th><td>Thiết kế kiến trúc, toàn bộ mã nguồn Python/HTML/CSS/JS, bộ kiểm thử, bộ câu đố (qua bộ sinh), script thực nghiệm, bản nháp báo cáo này và các hình chụp giao diện.</td></tr>
+  <tr><th>Kiểm chứng</th><td>Mọi số liệu trong mục 6 do script <code>experiments.py</code> đo trên máy thật và được chèn tự động vào báo cáo bởi <code>Report/build_report.py</code>; {{TEST_COUNT}} ca kiểm thử tự động; giao diện được thử trực tiếp trên trình duyệt.</td></tr>
+  <tr><th>Nhóm bổ sung</th><td>[Các prompt khác, phần nhóm tự viết/sửa, cách nhóm đọc hiểu và kiểm tra lại mã nguồn]</td></tr>
+</table>
+
+<h1>Phụ lục B. Hướng dẫn cài đặt và chạy</h1>
+<p>Yêu cầu Python ≥ 3.10 (đã thử với {{PYTHON}}), không cần thư viện ngoài. Trong thư mục <code>Source</code>:</p>
+<pre>python main.py                                   # mở GUI tại http://127.0.0.1:8000
+python main.py gui --port 8080 --no-browser       # đổi cổng / không tự mở trình duyệt
+python main.py solve puzzles/4x4/classic-4x4-a.json --verbose --trace trace.json
+python main.py check puzzles/special/special-stuck-3x3.json
+python main.py encode puzzles/tutorial/tutorial-3x3.json --all --dimacs kb.cnf
+python main.py generate --size 4 --seed 7 --ext 0.3 --out my-puzzle.json
+python main.py experiments                        # ghi results/experiments.{csv,json,md}
+python -m unittest discover -s tests              # chạy kiểm thử
+python ../Report/build_report.py                  # dựng lại Report.pdf (cần Microsoft Edge hoặc Chrome)</pre>
+
+<h1>Phụ lục C. Định dạng câu đố JSON</h1>
+<pre>{
+  "id": "tutorial-3x3", "title": "Tutorial - nine suspects",
+  "rows": 3, "cols": 3,
+  "initial": ["B2"],                                  // thẻ mở sẵn
+  "characters": [
+    {"cell": "A1", "name": "Alice", "profession": "Baker", "status": "INNOCENT",
+     "clue": {"type": "EXACTLY", "k": 2, "region": {"kind": "neighbors", "of": "Alice"}}},
+    {"cell": "B3", "name": "Hugo", "profession": "Farmer", "status": "CRIMINAL",
+     "clue": {"type": "SAME", "a": "Iris", "b": "Daniel"}},
+    {"cell": "A3", "name": "Grace", "profession": "Painter", "status": "INNOCENT",
+     "clue": {"type": "IMPLIES", "if": {"type": "FACT", "person": "Iris", "status": "CRIMINAL"},
+              "then": {"type": "AT_LEAST", "k": 1, "region": {"kind": "neighbors", "of": "Grace"}}}},
+    ...
+  ]
+}</pre>
+<p>Người trong manh mối có thể ghi bằng mã ô hoặc tên. Trường <code>status</code> của manh mối đếm (mặc định CRIMINAL) chọn trạng
+thái được đếm. Tệp câu đố chứa đáp án nên chỉ Game Engine đọc; GUI có nút tải tệp để nạp câu đố mới.</p>
+
+<h1>Phụ lục D. Kịch bản video demo (5–10 phút)</h1>
+<ol>
+  <li>(0:00) Giới thiệu nhóm, mục tiêu “không đoán”, kiến trúc Engine/Agent (Hình kiến trúc mục 2.2).</li>
+  <li>(1:00) <b>GUI</b>: chạy <code>python main.py</code>; giới thiệu lưới, tọa độ, thẻ úp/mở, chú giải màu, bảng KB, nhật ký.</li>
+  <li>(2:00) <b>Chơi tay</b> trên Tutorial: Alice = INNOCENT → NOT_PROVABLE; Bruno = INNOCENT → CONTRADICTED; Bruno = CRIMINAL → ACCEPTED,
+  thẻ lật; bấm manh mối của Bruno để thấy hàng 1 được tô sáng; dùng Hint (hai lần) rồi làm theo gợi ý.</li>
+  <li>(4:00) Restart; Auto Solve cho đến SOLVED; mở chi tiết một bước trong nhật ký để thấy các truy vấn <i>KB</i> ∧ ¬C<sub>i</sub> → UNSAT.</li>
+  <li>(5:30) Load câu đố 4×4/5×5 có mở rộng, Auto Solve, chọn manh mối COMPARE/PARITY/CONNECTED để xem tô sáng.</li>
+  <li>(7:00) Ca đặc biệt: <code>special-stuck-3x3</code> (STUCK + Check uniqueness = UNIQUE nhưng không giải tuần tự được),
+  <code>special-inconsistent-3x3</code> (INCONSISTENT). Đổi cách mã hóa trong Solver settings và xem số biến phụ/mệnh đề thay đổi.</li>
+  <li>(8:30) Terminal: <code>python main.py solve … --verbose</code>, <code>python main.py experiments</code>; tổng kết.</li>
+</ol>
+<p>Tải video lên Google Drive, đặt quyền “Bất kỳ ai có liên kết đều xem được”, kiểm tra bằng cửa sổ ẩn danh, dán liên kết vào trang bìa.</p>
+
+</body>
+</html>

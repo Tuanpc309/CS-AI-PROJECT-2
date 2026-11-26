@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.claude/
+Report/.browser-profile/
+*.log
+trace*.json

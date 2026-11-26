@@ -1,0 +1,34 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "tutorial-3x3",
+  "title": "Tutorial - nine suspects",
+  "rows": 3,
+  "cols": 3,
+  "initial": ["B2"],
+  "characters": [
+    {"cell": "A1", "name": "Alice", "profession": "Baker", "status": "INNOCENT",
+     "clue": {"type": "EXACTLY", "k": 2, "region": {"kind": "neighbors", "of": "Alice"}, "status": "CRIMINAL"}},
+    {"cell": "B1", "name": "Bruno", "profession": "Guard", "status": "CRIMINAL",
+     "clue": {"type": "AT_MOST", "k": 1, "region": {"kind": "row", "row": 1}, "status": "CRIMINAL"}},
+    {"cell": "C1", "name": "Chloe", "profession": "Doctor", "status": "INNOCENT",
+     "clue": {"type": "EXACTLY", "k": 1, "region": {"kind": "neighbors", "of": "Chloe"}, "status": "CRIMINAL"}},
+    {"cell": "A2", "name": "Daniel", "profession": "Mechanic", "status": "CRIMINAL",
+     "clue": {"type": "PARITY", "parity": "ODD", "region": {"kind": "col", "col": "A"}, "status": "CRIMINAL"}},
+    {"cell": "B2", "name": "Emma", "profession": "Teacher", "status": "INNOCENT",
+     "clue": {"type": "EXACTLY", "k": 2, "region": {"kind": "col", "col": "B"}, "status": "CRIMINAL"}},
+    {"cell": "C2", "name": "Felix", "profession": "Chef", "status": "INNOCENT",
+     "clue": {"type": "COMPARE", "op": "MORE", "left": {"kind": "col", "col": "B"}, "right": {"kind": "col", "col": "C"}, "status": "CRIMINAL"}},
+    {"cell": "A3", "name": "Grace", "profession": "Painter", "status": "INNOCENT",
+     "clue": {"type": "IMPLIES",
+              "if": {"type": "FACT", "person": "Iris", "status": "CRIMINAL"},
+              "then": {"type": "AT_LEAST", "k": 1, "region": {"kind": "neighbors", "of": "Grace"}, "status": "CRIMINAL"}}},
+    {"cell": "B3", "name": "Hugo", "profession": "Farmer", "status": "CRIMINAL",
+     "clue": {"type": "SAME", "a": "Iris", "b": "Daniel"}},
+    {"cell": "C3", "name": "Iris", "profession": "Pilot", "status": "CRIMINAL",
+     "clue": {"type": "CONNECTED", "region": {"kind": "row", "row": 3}, "status": "CRIMINAL"}}
+  ],
+  "meta": {
+    "author": "hand-made",
+    "description": "Hand-written tutorial: core clues plus PARITY, COMPARE, CONNECTED and IMPLIES."
+  }
+}

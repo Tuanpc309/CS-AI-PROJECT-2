@@ -1,0 +1,165 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "special-inconsistent-3x3",
+  "title": "Special: contradictory clues",
+  "rows": 3,
+  "cols": 3,
+  "initial": [
+    "B2",
+    "C2"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Alice",
+      "profession": "Baker",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "A1"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 2 criminals among Alice's neighbors."
+    },
+    {
+      "cell": "B1",
+      "name": "Bruno",
+      "profession": "Guard",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "row": 1
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is at most 1 criminal in row 1."
+    },
+    {
+      "cell": "C1",
+      "name": "Chloe",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal among Chloe's neighbors."
+    },
+    {
+      "cell": "A2",
+      "name": "Daniel",
+      "profession": "Mechanic",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "PARITY",
+        "parity": "ODD",
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is an odd number of criminals in column A."
+    },
+    {
+      "cell": "B2",
+      "name": "Emma",
+      "profession": "Teacher",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "col": "B"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 2 criminals in column B."
+    },
+    {
+      "cell": "C2",
+      "name": "Felix",
+      "profession": "Chef",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "col",
+          "col": "B"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are no criminals in column B."
+    },
+    {
+      "cell": "A3",
+      "name": "Grace",
+      "profession": "Painter",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "type": "FACT",
+          "person": "C3",
+          "status": "CRIMINAL"
+        },
+        "then": {
+          "type": "AT_LEAST",
+          "k": 1,
+          "region": {
+            "kind": "neighbors",
+            "of": "A3"
+          },
+          "status": "CRIMINAL"
+        }
+      },
+      "text": "If Iris is a criminal, then there is at least 1 criminal among Grace's neighbors."
+    },
+    {
+      "cell": "B3",
+      "name": "Hugo",
+      "profession": "Farmer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "SAME",
+        "a": "C3",
+        "b": "A2"
+      },
+      "text": "Iris and Daniel have the same status."
+    },
+    {
+      "cell": "C3",
+      "name": "Iris",
+      "profession": "Pilot",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "CONNECTED",
+        "region": {
+          "kind": "row",
+          "row": 3
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "All criminals in row 3 are connected."
+    }
+  ],
+  "meta": {
+    "author": "hand-made",
+    "expected": "INCONSISTENT",
+    "description": "Felix's clue is false, so the public knowledge is unsatisfiable."
+  }
+}

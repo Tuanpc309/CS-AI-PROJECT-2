@@ -1,0 +1,164 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "classic-3x3-b",
+  "title": "3x3 Classic B",
+  "rows": 3,
+  "cols": 3,
+  "initial": [
+    "C3"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Chloe",
+      "profession": "Firefighter",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "C2"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at least 2 criminals among Maya's neighbors."
+    },
+    {
+      "cell": "B1",
+      "name": "Dmitri",
+      "profession": "Teacher",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are no innocents in column A."
+    },
+    {
+      "cell": "C1",
+      "name": "Freya",
+      "profession": "Scientist",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "row": 1
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is exactly 1 innocent in row 1."
+    },
+    {
+      "cell": "A2",
+      "name": "Kira",
+      "profession": "Singer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "FACT",
+        "person": "C2",
+        "status": "INNOCENT"
+      },
+      "text": "Maya is innocent."
+    },
+    {
+      "cell": "B2",
+      "name": "Marco",
+      "profession": "Guard",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "Everyone in column A is a criminal."
+    },
+    {
+      "cell": "C2",
+      "name": "Maya",
+      "profession": "Builder",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "A2",
+            "B2",
+            "B3",
+            "C3"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals among Kira, Marco, Pia and Sam."
+    },
+    {
+      "cell": "A3",
+      "name": "Mia",
+      "profession": "Baker",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "FACT",
+        "person": "C1",
+        "status": "INNOCENT"
+      },
+      "text": "Freya is innocent."
+    },
+    {
+      "cell": "B3",
+      "name": "Pia",
+      "profession": "Detective",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "B3"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are at most 2 innocents among Pia's neighbors."
+    },
+    {
+      "cell": "C3",
+      "name": "Sam",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "row",
+          "row": 3
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 2 criminals in row 3."
+    }
+  ],
+  "meta": {
+    "author": "gridlogic.generator",
+    "generator": {
+      "seed": 1001,
+      "attempt": 3,
+      "extension_rate": 0.0,
+      "initial_reveals": 1
+    },
+    "waves": 5,
+    "features": []
+  }
+}

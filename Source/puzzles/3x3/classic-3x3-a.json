@@ -1,0 +1,157 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "classic-3x3-a",
+  "title": "3x3 Classic A",
+  "rows": 3,
+  "cols": 3,
+  "initial": [
+    "A2"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Carmen",
+      "profession": "Farmer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "A1",
+            "A2",
+            "B2",
+            "A3"
+          ]
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 3 innocents among Carmen, Jonah, Liam and Nora."
+    },
+    {
+      "cell": "B1",
+      "name": "Felix",
+      "profession": "Judge",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "C1",
+        "b": "C2"
+      },
+      "text": "Grace and Mia have different statuses."
+    },
+    {
+      "cell": "C1",
+      "name": "Grace",
+      "profession": "Judge",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "C1",
+            "B2",
+            "C2",
+            "B3"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There is exactly 1 criminal among Grace, Liam, Mia and Oscar."
+    },
+    {
+      "cell": "A2",
+      "name": "Jonah",
+      "profession": "Scientist",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "SAME",
+        "a": "B2",
+        "b": "A2"
+      },
+      "text": "Liam and Jonah have the same status."
+    },
+    {
+      "cell": "B2",
+      "name": "Liam",
+      "profession": "Detective",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "row",
+          "row": 2
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are no criminals in row 2."
+    },
+    {
+      "cell": "C2",
+      "name": "Mia",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "SAME",
+        "a": "B1",
+        "b": "C2"
+      },
+      "text": "Felix and Mia have the same status."
+    },
+    {
+      "cell": "A3",
+      "name": "Nora",
+      "profession": "Scientist",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "col": "C"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 2 innocents in column C."
+    },
+    {
+      "cell": "B3",
+      "name": "Oscar",
+      "profession": "Judge",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "C3",
+        "b": "C1"
+      },
+      "text": "Rosa and Grace have different statuses."
+    },
+    {
+      "cell": "C3",
+      "name": "Rosa",
+      "profession": "Programmer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "SAME",
+        "a": "A1",
+        "b": "B2"
+      },
+      "text": "Carmen and Liam have the same status."
+    }
+  ],
+  "meta": {
+    "author": "gridlogic.generator",
+    "generator": {
+      "seed": 1000,
+      "attempt": 1,
+      "extension_rate": 0.0,
+      "initial_reveals": 1
+    },
+    "waves": 8,
+    "features": []
+  }
+}

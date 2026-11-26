@@ -1,0 +1,309 @@
+{
+  "format": "gridlogic-puzzle/1",
+  "id": "ext-4x4-b",
+  "title": "4x4 Extensions B",
+  "rows": 4,
+  "cols": 4,
+  "initial": [
+    "D4"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Cyrus",
+      "profession": "Judge",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 5,
+        "region": {
+          "kind": "neighbors",
+          "of": "B3"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 5 criminals among Omar's neighbors."
+    },
+    {
+      "cell": "B1",
+      "name": "Dora",
+      "profession": "Pilot",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "COMPARE",
+        "op": "FEWER",
+        "left": {
+          "kind": "row",
+          "row": 1
+        },
+        "right": {
+          "kind": "row",
+          "row": 3
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are fewer criminals in row 1 than in row 3."
+    },
+    {
+      "cell": "C1",
+      "name": "Eli",
+      "profession": "Programmer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "B2"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 2 innocents among Ines's neighbors."
+    },
+    {
+      "cell": "D1",
+      "name": "Gina",
+      "profession": "Singer",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "PARITY",
+        "parity": "ODD",
+        "region": {
+          "kind": "neighbors",
+          "of": "D1"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is an odd number of innocents among Gina's neighbors."
+    },
+    {
+      "cell": "A2",
+      "name": "Grace",
+      "profession": "Scientist",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "direction",
+          "of": "A4",
+          "dir": "above"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is at least 1 innocent above Pia."
+    },
+    {
+      "cell": "B2",
+      "name": "Ines",
+      "profession": "Farmer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "COMPARE",
+        "op": "EQUAL",
+        "left": {
+          "kind": "col",
+          "col": "B"
+        },
+        "right": {
+          "kind": "col",
+          "col": "D"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are as many criminals in column B as in column D."
+    },
+    {
+      "cell": "C2",
+      "name": "Ivan",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "common_neighbors",
+          "of": [
+            "C2",
+            "B1"
+          ]
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is exactly 1 innocent among the common neighbors of Ivan and Dora."
+    },
+    {
+      "cell": "D2",
+      "name": "Jonah",
+      "profession": "Doctor",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "col": "A"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at least 2 criminals in column A."
+    },
+    {
+      "cell": "A3",
+      "name": "Nora",
+      "profession": "Detective",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "D2",
+            "B3",
+            "A4",
+            "B4"
+          ]
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals among Jonah, Omar, Pia and Theo."
+    },
+    {
+      "cell": "B3",
+      "name": "Omar",
+      "profession": "Chef",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "col",
+          "col": "D"
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are exactly 3 criminals in column D."
+    },
+    {
+      "cell": "C3",
+      "name": "Paul",
+      "profession": "Chef",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "C3"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are exactly 3 innocents among Paul's neighbors."
+    },
+    {
+      "cell": "D3",
+      "name": "Petra",
+      "profession": "Scientist",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "D3"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are at most 3 innocents among Petra's neighbors."
+    },
+    {
+      "cell": "A4",
+      "name": "Pia",
+      "profession": "Farmer",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "COMPARE",
+        "op": "EQUAL",
+        "left": {
+          "kind": "row",
+          "row": 2
+        },
+        "right": {
+          "kind": "row",
+          "row": 4
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are as many criminals in row 2 as in row 4."
+    },
+    {
+      "cell": "B4",
+      "name": "Theo",
+      "profession": "Firefighter",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "row": 2
+        },
+        "status": "CRIMINAL"
+      },
+      "text": "There are at most 3 criminals in row 2."
+    },
+    {
+      "cell": "C4",
+      "name": "Xavier",
+      "profession": "Builder",
+      "status": "CRIMINAL",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "C4"
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There is at most 1 innocent among Xavier's neighbors."
+    },
+    {
+      "cell": "D4",
+      "name": "Zane",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "C3",
+            "D3",
+            "C4"
+          ]
+        },
+        "status": "INNOCENT"
+      },
+      "text": "There are no innocents among Paul, Petra and Xavier."
+    }
+  ],
+  "meta": {
+    "author": "gridlogic.generator",
+    "generator": {
+      "seed": 4001,
+      "attempt": 2,
+      "extension_rate": 0.45,
+      "initial_reveals": 1
+    },
+    "waves": 6,
+    "features": [
+      "COMPARE",
+      "PARITY",
+      "region:common_neighbors",
+      "region:direction"
+    ]
+  }
+}
